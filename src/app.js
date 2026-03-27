@@ -1,6 +1,7 @@
 import calculator from "./script/calculator.js";
 import {renderHistory, clearHistory, addHistory} from "./script/history.js"
 import { initTheme, toggleTheme } from "./script/theme.js";
+import "./script/keyboard.js"
 
 let currExpression = "";
 const expression = document.getElementById("expression");
@@ -12,12 +13,14 @@ const toggleThemeBtn = document.getElementById('theme-toggle')
 
 //MAIN RENDER
 renderHistory(historyList)
-initTheme(historyList)
+initTheme()
 
 keypad.addEventListener("click", (e) => {
   const type = e.target.dataset.type;
+  const isButton = e.target.closest('button')
 
-  if (!type) return; //Stop Function
+  if (!type && isButton) return; //Stop Function
+  isButton.blur() //Clear button focus
 
   if (type === "num") {
     result.textContent = "";
@@ -34,11 +37,11 @@ keypad.addEventListener("click", (e) => {
 
   if (type === "equal") {
     const res = calculator.getResult();
-    console.log("res:", res);
-    console.log("typeof res:", typeof res);
     if (typeof res === "number") {
-      addHistory(currExpression, res)
-      renderHistory(historyList)
+      if (calculator.getArray().length > 0){
+        addHistory(currExpression, res)
+        renderHistory(historyList)
+      }
       result.textContent = "";
       calculator.allClear();
       currExpression = "";
