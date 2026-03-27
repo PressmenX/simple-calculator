@@ -1,2 +1,14 @@
 @import 'reset.css';
 @import 'keypad.css';
+
+:root {
+  --bg-color: #ffffff
+}
+
+body.dark-theme {
+  --bg-color: #1a1a1a; 
+}
+
+body {
+  background: var(--bg-color);
+}

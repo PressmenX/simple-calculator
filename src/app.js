@@ -1,9 +1,18 @@
 import calculator from "./script/calculator.js";
+import {renderHistory, clearHistory, addHistory} from "./script/history.js"
+import { initTheme, toggleTheme } from "./script/theme.js";
 
 let currExpression = "";
 const expression = document.getElementById("expression");
 const result = document.getElementById("result");
 const keypad = document.getElementById("keypad");
+const historyList = document.getElementById('history-list')
+const clearHistoryBtn = document.getElementById('clear-history')
+const toggleThemeBtn = document.getElementById('theme-toggle')
+
+//MAIN RENDER
+renderHistory(historyList)
+initTheme(historyList)
 
 keypad.addEventListener("click", (e) => {
   const type = e.target.dataset.type;
@@ -28,12 +37,13 @@ keypad.addEventListener("click", (e) => {
     console.log("res:", res);
     console.log("typeof res:", typeof res);
     if (typeof res === "number") {
+      addHistory(currExpression, res)
+      renderHistory(historyList)
       result.textContent = "";
       calculator.allClear();
       currExpression = "";
       calculator.addEntry(res);
     } else {
-      console.log("ini else");
       result.textContent = res;
       calculator.allClear();
     }
@@ -54,6 +64,15 @@ keypad.addEventListener("click", (e) => {
     setDisplay();
   }
 });
+
+clearHistoryBtn.addEventListener('click', ()=> {
+  clearHistory()
+  renderHistory(historyList)
+})
+
+toggleThemeBtn.addEventListener('click', ()=> {
+  toggleTheme()
+})
 
 function setDisplay() {
   if (calculator.getArray().length > 0)
