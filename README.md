@@ -1,6 +1,6 @@
 <img width="50" height="50" alt="image" src="https://github.com/user-attachments/assets/bbe9328a-95ca-4c7e-911b-03e6bbff39cd" />
 
-# Simple Calculator
+# Vanilla Simple Calculator
 
 Sebuah kalkulator web sederhana yang dibangun menggunakan modul ES modern dan Vite.
 
